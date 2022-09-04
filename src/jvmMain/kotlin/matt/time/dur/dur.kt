@@ -16,6 +16,8 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.Date
+import kotlin.time.toKotlinDuration
+
 
 class Duration private constructor(nanos: Long): Comparable<Duration> {
 
@@ -24,6 +26,7 @@ class Duration private constructor(nanos: Long): Comparable<Duration> {
   )
 
   private val stupidDur: java.time.Duration = java.time.Duration.ofNanos(nanos)
+  fun toKotlinDuration() = stupidDur.toKotlinDuration()
 
   companion object {
 	val purpose =
@@ -92,7 +95,8 @@ fun today(): LocalDate = LocalDate.now()
 fun tomorrow(): LocalDate = today().plus(1, ChronoUnit.DAYS)
 fun nowDateTime(): LocalDateTime = today().atTime(LocalTime.now())
 
-fun localDateTimeOfEpochMilli(ms: Long): LocalDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(ms), ZoneId.systemDefault())
+fun localDateTimeOfEpochMilli(ms: Long): LocalDateTime =
+  LocalDateTime.ofInstant(Instant.ofEpochMilli(ms), ZoneId.systemDefault())
 
 fun milli() = System.currentTimeMillis()
 
@@ -136,3 +140,5 @@ val Number.day
 
 fun now() = System.currentTimeMillis().unixMS
 
+
+fun sleep(d: kotlin.time.Duration) = Thread.sleep(d.inWholeMilliseconds)
