@@ -3,6 +3,7 @@ package matt.time.dur
 import matt.lang.RUNTIME_MX
 import matt.math.BILLION
 import matt.math.MILLION
+import matt.math.Mathable
 import matt.math.THOUSAND
 import matt.math.roundToDecimal
 import java.text.SimpleDateFormat
@@ -18,8 +19,9 @@ import java.time.temporal.ChronoUnit
 import java.util.Date
 import kotlin.time.toKotlinDuration
 
+fun kotlin.time.Duration.toMDuration() = this.inWholeMilliseconds.ms
 
-class Duration private constructor(nanos: Long): Comparable<Duration> {
+class Duration private constructor(nanos: Long): Comparable<Duration>, Mathable<Duration> {
 
   constructor(startNanos: Number, stopNanos: Number): this(
 	(stopNanos.toDouble() - startNanos.toDouble()).toLong()
@@ -73,6 +75,14 @@ class Duration private constructor(nanos: Long): Comparable<Duration> {
 
   override fun compareTo(other: Duration): Int {
 	return this.stupidDur.compareTo(other.stupidDur)
+  }
+
+  override fun plus(m: Duration): Duration {
+	return Duration((stupidDur + m.stupidDur).toNanos())
+  }
+
+  override fun div(n: Number): Duration {
+	return Duration((stupidDur.toNanos()/n.toDouble()).toLong())
   }
 
   override fun toString() = format()
