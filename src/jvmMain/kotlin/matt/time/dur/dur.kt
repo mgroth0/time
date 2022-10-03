@@ -1,5 +1,6 @@
 package matt.time.dur
 
+import matt.lang.NOT_IMPLEMENTED
 import matt.lang.RUNTIME_MX
 import java.text.SimpleDateFormat
 import java.time.Instant
@@ -66,6 +67,28 @@ operator fun Instant.minus(started: Date): Duration {
 /*val Number.nanos
   get() = Duration.ofNanoseconds(this)
 */
+
+val Number.ms
+  get() = when (this) {
+	is Int    -> ms
+	is Long   -> ms
+	is Double -> ms
+	else      -> NOT_IMPLEMENTED
+  }
+val Number.sec
+  get() = when (this) {
+    is Int    -> sec
+    is Long   -> sec
+    is Double -> sec
+    else      -> NOT_IMPLEMENTED
+  }
+val Number.min
+  get() = when (this) {
+    is Int    -> min
+    is Long   -> min
+    is Double -> min
+    else      -> NOT_IMPLEMENTED
+  }
 
 val Int.ms get() = this.milliseconds
 val Int.sec get() = this.seconds
