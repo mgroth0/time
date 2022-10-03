@@ -71,6 +71,10 @@ val Int.ms get() = this.milliseconds
 val Int.sec get() = this.seconds
 val Int.min get() = this.minutes
 
+val Long.ms get() = this.milliseconds
+val Long.sec get() = this.seconds
+val Long.min get() = this.minutes
+
 val Double.ms get() = this.milliseconds
 val Double.sec get() = this.seconds
 val Double.min get() = this.minutes
