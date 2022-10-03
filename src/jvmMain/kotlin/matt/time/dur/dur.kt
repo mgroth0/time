@@ -14,9 +14,11 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.Date
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Duration.Companion.days
 
 //fun Duration.toMDuration() = this.inWholeMilliseconds.milli
 
@@ -87,6 +89,20 @@ val Number.min
     is Int    -> min
     is Long   -> min
     is Double -> min
+    else      -> NOT_IMPLEMENTED
+  }
+val Number.hours
+  get() = when (this) {
+    is Int    -> hours
+    is Long   -> hours
+    is Double -> hours
+    else      -> NOT_IMPLEMENTED
+  }
+val Number.days
+  get() = when (this) {
+    is Int    -> days
+    is Long   -> days
+    is Double -> days
     else      -> NOT_IMPLEMENTED
   }
 
