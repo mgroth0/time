@@ -65,17 +65,16 @@ operator fun Instant.minus(started: Date): Duration {
 
 /*val Number.nanos
   get() = Duration.ofNanoseconds(this)
-val Number.ms
-  get() = Duration.ofMilliseconds(this)*/
-val Int.sec
-  get() = this.seconds
-val Int.min
-  get() = this.minutes
+*/
 
-val Double.sec
-  get() = this.seconds
-val Double.min
-  get() = this.minutes
+val Int.ms get() = this.milliseconds
+val Int.sec get() = this.seconds
+val Int.min get() = this.minutes
+
+val Double.ms get() = this.milliseconds
+val Double.sec get() = this.seconds
+val Double.min get() = this.minutes
+
 /*val Number.hours
   get() = Duration.ofHours(this)
 val Number.hour
