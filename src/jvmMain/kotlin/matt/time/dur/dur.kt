@@ -16,7 +16,7 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
-fun Duration.toMDuration() = this.inWholeMilliseconds.ms
+//fun Duration.toMDuration() = this.inWholeMilliseconds.milli
 
 fun uptime() = RUNTIME_MX.uptime.milliseconds
 
@@ -61,7 +61,7 @@ operator fun Instant.minus(started: Date): Duration {
   return this - started.toInstant()
 }
 
-//
+
 //val Number.nanos
 //  get() = Duration.ofNanoseconds(this)
 //val Number.ms
