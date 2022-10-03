@@ -66,8 +66,8 @@ operator fun Instant.minus(started: Date): Duration {
 //  get() = Duration.ofNanoseconds(this)
 //val Number.ms
 //  get() = Duration.ofMilliseconds(this)
-//val Number.sec
-//  get() = Duration.ofSeconds(this)
+val Int.sec
+  get() = this.seconds
 //val Number.min
 //  get() = Duration.ofMinutes(this)
 //val Number.hours
