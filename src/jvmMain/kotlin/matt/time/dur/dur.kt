@@ -71,6 +71,11 @@ val Int.sec
   get() = this.seconds
 val Int.min
   get() = this.minutes
+
+val Double.sec
+  get() = this.seconds
+val Double.min
+  get() = this.minutes
 /*val Number.hours
   get() = Duration.ofHours(this)
 val Number.hour
