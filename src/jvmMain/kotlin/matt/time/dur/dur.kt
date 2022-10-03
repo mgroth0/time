@@ -14,6 +14,7 @@ import java.time.temporal.ChronoUnit
 import java.util.Date
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
 //fun Duration.toMDuration() = this.inWholeMilliseconds.milli
@@ -62,22 +63,22 @@ operator fun Instant.minus(started: Date): Duration {
 }
 
 
-//val Number.nanos
-//  get() = Duration.ofNanoseconds(this)
-//val Number.ms
-//  get() = Duration.ofMilliseconds(this)
+/*val Number.nanos
+  get() = Duration.ofNanoseconds(this)
+val Number.ms
+  get() = Duration.ofMilliseconds(this)*/
 val Int.sec
   get() = this.seconds
-//val Number.min
-//  get() = Duration.ofMinutes(this)
-//val Number.hours
-//  get() = Duration.ofHours(this)
-//val Number.hour
-//  get() = hours
-//val Number.days
-//  get() = Duration.ofDays(this)
-//val Number.day
-//  get() = days
+val Int.min
+  get() = this.minutes
+/*val Number.hours
+  get() = Duration.ofHours(this)
+val Number.hour
+  get() = hours
+val Number.days
+  get() = Duration.ofDays(this)
+val Number.day
+  get() = days*/
 
 fun now() = System.currentTimeMillis().unixMS
 
