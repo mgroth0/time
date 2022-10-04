@@ -4,8 +4,8 @@ import matt.lang.unixTime
 import kotlin.jvm.JvmInline
 import kotlin.time.Duration
 
-val MINUTE_MS: Int = 60*1000
-val HOUR_MS: Int = 3600*1000
+const val MINUTE_MS: Int = 60*1000
+const val HOUR_MS: Int = 3600*1000
 
 
 @JvmInline
