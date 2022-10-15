@@ -39,3 +39,7 @@ object MilliSecondDurationConverter: Converter<Duration, Double> {
   }
 
 }
+
+fun Duration.remMillis(d: Duration): Duration {
+  return inWholeMilliseconds.rem(d.inWholeMilliseconds).milliseconds
+}
