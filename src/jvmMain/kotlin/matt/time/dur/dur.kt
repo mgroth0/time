@@ -2,6 +2,7 @@ package matt.time.dur
 
 import matt.lang.NOT_IMPLEMENTED
 import matt.lang.RUNTIME_MX
+import matt.model.convert.StringConverter
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDate
@@ -131,3 +132,12 @@ fun now() = System.currentTimeMillis().unixMS
 
 
 fun sleep(d: Duration) = Thread.sleep(d.inWholeMilliseconds)
+
+
+val UNIX_MS_FORMATTER = object: StringConverter<Number> {
+  override fun toString(t: Number): String {
+    return Date(t.toLong()).formatDate()
+  }
+
+  override fun fromString(s: String) = TODO()
+}
