@@ -1,6 +1,5 @@
 package matt.time
 
-import matt.lang.NEVER
 import matt.lang.unixTime
 import matt.model.convert.Converter
 import kotlin.jvm.JvmInline
@@ -67,6 +66,6 @@ val Duration.largestFullUnit
 	this > ONE_SECOND      -> DurationUnit.SECONDS
 	this > ONE_MILLISECOND -> DurationUnit.MILLISECONDS
 	this > ONE_MICROSECOND -> DurationUnit.MICROSECONDS
-	this > ONE_NANOSECOND  -> DurationUnit.NANOSECONDS
-	else                   -> NEVER
+	this >= ONE_NANOSECOND -> DurationUnit.NANOSECONDS
+	else                   -> error("could not figure out largestFullUnit for ${this}")
   }
