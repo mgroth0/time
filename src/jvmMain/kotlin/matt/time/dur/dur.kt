@@ -2,7 +2,7 @@ package matt.time.dur
 
 import matt.lang.NOT_IMPLEMENTED
 import matt.lang.RUNTIME_MX
-import matt.model.convert.StringConverter
+import matt.model.op.convert.StringConverter
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDate
@@ -131,7 +131,7 @@ val Number.day
 fun now() = System.currentTimeMillis().unixMS
 
 
-fun sleep(d: Duration) = Thread.sleep(d.inWholeMilliseconds)
+actual fun sleep(duration: Duration) = Thread.sleep(duration.inWholeMilliseconds)
 
 
 val UNIX_MS_FORMATTER = object: StringConverter<Number> {

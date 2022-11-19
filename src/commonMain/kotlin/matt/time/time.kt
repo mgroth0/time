@@ -1,7 +1,7 @@
 package matt.time
 
 import matt.lang.unixTime
-import matt.model.convert.Converter
+import matt.model.op.convert.Converter
 import kotlin.jvm.JvmInline
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
@@ -69,3 +69,4 @@ val Duration.largestFullUnit
 	this >= ONE_NANOSECOND -> DurationUnit.NANOSECONDS
 	else                   -> error("could not figure out largestFullUnit for ${this}")
   }
+
