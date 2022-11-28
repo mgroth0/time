@@ -131,7 +131,8 @@ val Number.day
 fun now() = System.currentTimeMillis().unixMS
 
 
-actual fun sleep(duration: Duration) = Thread.sleep(duration.inWholeMilliseconds)
+@Suppress("NOTHING_TO_INLINE")
+actual inline fun sleep(duration: Duration) = Thread.sleep(duration.inWholeMilliseconds)
 
 
 val UNIX_MS_FORMATTER = object: StringConverter<Number> {
