@@ -1,3 +1,5 @@
+@file:JvmName("DurJvmKt")
+
 package matt.time.dur
 
 import matt.lang.NOT_IMPLEMENTED
@@ -80,31 +82,31 @@ val Number.ms
   }
 val Number.sec
   get() = when (this) {
-    is Int    -> sec
-    is Long   -> sec
-    is Double -> sec
-    else      -> NOT_IMPLEMENTED
+	is Int    -> sec
+	is Long   -> sec
+	is Double -> sec
+	else      -> NOT_IMPLEMENTED
   }
 val Number.min
   get() = when (this) {
-    is Int    -> min
-    is Long   -> min
-    is Double -> min
-    else      -> NOT_IMPLEMENTED
+	is Int    -> min
+	is Long   -> min
+	is Double -> min
+	else      -> NOT_IMPLEMENTED
   }
 val Number.hours
   get() = when (this) {
-    is Int    -> hours
-    is Long   -> hours
-    is Double -> hours
-    else      -> NOT_IMPLEMENTED
+	is Int    -> hours
+	is Long   -> hours
+	is Double -> hours
+	else      -> NOT_IMPLEMENTED
   }
 val Number.days
   get() = when (this) {
-    is Int    -> days
-    is Long   -> days
-    is Double -> days
-    else      -> NOT_IMPLEMENTED
+	is Int    -> days
+	is Long   -> days
+	is Double -> days
+	else      -> NOT_IMPLEMENTED
   }
 
 val Int.ms get() = this.milliseconds
@@ -137,7 +139,7 @@ actual inline fun sleep(duration: Duration) = Thread.sleep(duration.inWholeMilli
 
 val UNIX_MS_FORMATTER = object: StringConverter<Number> {
   override fun toString(t: Number): String {
-    return Date(t.toLong()).formatDate()
+	return Date(t.toLong()).formatDate()
   }
 
   override fun fromString(s: String) = TODO()
