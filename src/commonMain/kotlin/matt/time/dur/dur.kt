@@ -11,6 +11,8 @@ import kotlin.time.Duration.Companion.seconds
 
 expect fun sleep(duration: Duration)
 
+fun Duration.formatForSpeechSecs() = "${this.inWholeSeconds} seconds"
+fun Duration.formatForSpeechMins() = "${this.inWholeMinutes} minutes"
 
 fun Duration.formatForSpeech() = when {
   this == 1.nanoseconds  -> "1 nanosecond"
