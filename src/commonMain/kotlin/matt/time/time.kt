@@ -1,7 +1,13 @@
 package matt.time
 
+import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import matt.lang.unixTime
 import matt.model.op.convert.Converter
+import matt.time.AMOrPM.AM
+import matt.time.AMOrPM.PM
 import kotlin.jvm.JvmInline
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
@@ -14,8 +20,29 @@ import kotlin.time.Duration.Companion.seconds
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
+enum class AMOrPM { AM, PM }
+
+
+val LocalDateTime.minPart
+  get() = when {
+	minute < 10 -> "0$minute"
+	else        -> minute
+  }
+val LocalDateTime.halfDayHour
+  get() = when (val h = hour%12) {
+	0    -> 12
+	else -> h
+  }
+val LocalDateTime.amOrPm get() = if (hour >= 13) PM else AM
+fun UnixTime.toLocalDateTime() = toInstant().toLocalDateTime()
+fun Instant.toLocalDateTime() = toLocalDateTime(TimeZone.currentSystemDefault())
+fun UnixTime.toInstant() = Instant.fromEpochMilliseconds(duration.inWholeMilliseconds)
+
+
 const val MINUTE_MS: Int = 60*1000
 const val HOUR_MS: Int = 3600*1000
+
+fun Duration.toUnixTime() = UnixTime(this)
 
 
 @JvmInline value class UnixTime(val duration: Duration = unixTime()): Comparable<UnixTime> {
