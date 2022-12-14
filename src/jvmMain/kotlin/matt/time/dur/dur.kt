@@ -136,6 +136,10 @@ fun now() = System.currentTimeMillis().unixMS
 @Suppress("NOTHING_TO_INLINE")
 actual inline fun sleep(duration: Duration) = Thread.sleep(duration.inWholeMilliseconds)
 
+@Suppress("NOTHING_TO_INLINE")
+@JvmName("sleep2")
+inline fun Duration.sleep() = sleep(this)
+
 
 val UNIX_MS_FORMATTER = object: StringConverter<Number> {
   override fun toString(t: Number): String {
