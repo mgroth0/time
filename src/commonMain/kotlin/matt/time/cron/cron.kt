@@ -15,7 +15,15 @@ object PosixCronSerializer: KSerializer<PosixCron> {
   }
 
   override fun deserialize(decoder: Decoder): PosixCron {
-	TODO("Not yet implemented")
+	val s = decoder.decodeString()
+	val parts = s.split(" ")
+	return PosixCron(
+	  minutes = parts[0],
+	  hours = parts[1],
+	  dayOfMonth = parts[2],
+	  month = parts[3],
+	  dayOfWeek = parts[4]
+	)
   }
 
   override fun serialize(encoder: Encoder, value: PosixCron) {
@@ -24,7 +32,7 @@ object PosixCronSerializer: KSerializer<PosixCron> {
 
 }
 
-@Serializable
+@Serializable(with = PosixCronSerializer::class)
 @SeeURL("https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule")
 @SeeURL("https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07")
 data class PosixCron(
