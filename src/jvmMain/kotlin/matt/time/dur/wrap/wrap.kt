@@ -1,9 +1,11 @@
 package matt.time.dur.wrap
 
+import kotlinx.serialization.InternalSerializationApi
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import matt.cbor.ser.MyCborSerializer
+import kotlinx.serialization.serializer
 import matt.model.data.interp.BasicInterpolatable
 import matt.model.data.mathable.MathAndComparable
 import matt.model.op.convert.Converter
@@ -14,7 +16,24 @@ import kotlin.time.Duration.Companion.seconds
 import kotlin.time.DurationUnit
 import kotlin.time.DurationUnit.SECONDS
 
-object DurationByTheSecondSerializer: MyCborSerializer<DurationWrapper>(DurationWrapper::class) {
+//object DurationByTheSecondSerializer: MyCborSerializer<DurationWrapper>(DurationWrapper::class) {
+//  override fun deserialize(decoder: Decoder): DurationWrapper {
+//	return decoder.decodeDouble().seconds.wrapped()
+//  }
+//
+//  override fun serialize(encoder: Encoder, value: DurationWrapper) {
+//	encoder.encodeDouble(value.toDouble(SECONDS))
+//  }
+//
+//}
+
+@OptIn(InternalSerializationApi::class)
+object DurationByTheSecondSerializer: KSerializer<DurationWrapper> {
+
+  override val descriptor by lazy {
+	Double::class.serializer().descriptor
+  }
+
   override fun deserialize(decoder: Decoder): DurationWrapper {
 	return decoder.decodeDouble().seconds.wrapped()
   }
