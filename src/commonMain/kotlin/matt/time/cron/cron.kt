@@ -7,6 +7,7 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.serializer
 import matt.lang.anno.SeeURL
+import matt.prim.str.removePrefixAndOrSuffix
 
 @OptIn(InternalSerializationApi::class)
 object PosixCronSerializer: KSerializer<PosixCron> {
@@ -63,7 +64,7 @@ object QuotedPosixCronSerializer: KSerializer<QuotedPosixCron> {
 
   override fun deserialize(decoder: Decoder): QuotedPosixCron {
 	val s = decoder.decodeString()
-	val parts = s.removeSurrounding(quoteChar).split(" ")
+	val parts = s.removePrefixAndOrSuffix(quoteChar).split(" ")
 	return QuotedPosixCron(
 	  PosixCron(
 		minutes = parts[0],
