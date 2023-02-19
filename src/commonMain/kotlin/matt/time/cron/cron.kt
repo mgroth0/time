@@ -44,6 +44,17 @@ data class PosixCron(
   val month: String,
   val dayOfWeek: String,
 ) {
+  companion object {
+	val EVERY_THREE_AM by lazy {
+	  PosixCron(
+		minutes = "0",
+		hours = "3",
+		dayOfMonth = "*",
+		month = "*",
+		dayOfWeek = "*"
+	  )
+	}
+  }
   fun format() = listOf(
 	minutes,
 	hours,
