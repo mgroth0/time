@@ -10,6 +10,7 @@ import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
 
 expect fun sleep(duration: Duration)
+expect suspend fun multiPlatformSleep(duration: Duration)
 
 fun Duration.formatForSpeechSecs() = "${this.inWholeSeconds} seconds"
 fun Duration.formatForSpeechMins() = "${this.inWholeMinutes} minutes"
@@ -50,3 +51,6 @@ val Duration.secondsPart: Long
 	this == 1.seconds -> 1
 	else              -> floor((this.inWholeSeconds%60.0)).toLong()
   }
+
+val Duration.isZero get() = this == Duration.ZERO
+val Duration.isNotZero get() = !isZero

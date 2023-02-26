@@ -17,6 +17,11 @@
 	  "type" : "Project",
 	  "cfg" :  "commonMainApi",
 	  "path" : ":k:prim"
+	},
+	{
+	  "type" : "Lib",
+	  "cfg" :  "commonMainApi",
+	  "key" :  "kotlinx-coroutines"
 	}
   ]
 }

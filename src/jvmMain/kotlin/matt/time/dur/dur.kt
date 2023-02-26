@@ -2,6 +2,7 @@
 
 package matt.time.dur
 
+import kotlinx.coroutines.delay
 import matt.lang.NOT_IMPLEMENTED
 import matt.lang.RUNTIME_MX
 import matt.model.op.convert.StringConverter
@@ -135,6 +136,10 @@ fun now() = System.currentTimeMillis().unixMS
 
 @Suppress("NOTHING_TO_INLINE")
 actual inline fun sleep(duration: Duration) = Thread.sleep(duration.inWholeMilliseconds)
+
+actual suspend fun multiPlatformSleep(duration: Duration) {
+  delay(duration)
+}
 
 @Suppress("NOTHING_TO_INLINE")
 @JvmName("sleep2")
