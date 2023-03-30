@@ -4,6 +4,7 @@ import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import kotlinx.serialization.Serializable
 import matt.lang.unixTime
 import matt.model.op.convert.Converter
 import matt.time.AMOrPM.AM
@@ -45,6 +46,7 @@ const val HOUR_MS: Int = 3600*1000
 fun Duration.toUnixTime() = UnixTime(this)
 
 
+@Serializable
 @JvmInline value class UnixTime(val duration: Duration = unixTime()): Comparable<UnixTime> {
 
   override fun compareTo(other: UnixTime) = duration.compareTo(other.duration)
