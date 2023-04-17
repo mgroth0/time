@@ -133,6 +133,7 @@ val Number.day
 
 fun now() = System.currentTimeMillis().unixMS
 
+object YesIUseTime
 
 @Suppress("NOTHING_TO_INLINE")
 actual inline fun sleep(duration: Duration) = Thread.sleep(duration.inWholeMilliseconds)
