@@ -1,5 +1,6 @@
 package matt.time
 
+import kotlinx.datetime.Clock.System
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
@@ -25,6 +26,9 @@ import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
 enum class AMOrPM { AM, PM }
+
+
+//fun localDateTimeNow() = System.now().toLocalDateTime(TimeZone.currentSystemDefault())
 
 
 val LocalDateTime.minPart
