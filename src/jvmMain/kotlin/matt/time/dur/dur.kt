@@ -16,7 +16,7 @@ import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
-import java.util.Date
+import java.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.hours
@@ -30,9 +30,9 @@ fun uptime() = RUNTIME_MX.uptime.milliseconds
 
 
 val Number.unixSeconds: Date
-  get() = Date((this.toDouble()*1000).toLong())
+    get() = Date((this.toDouble() * 1000).toLong())
 val Number.unixMS: Date
-  get() = Date(this.toLong())
+    get() = Date(this.toLong())
 
 
 private val stupid = "Have to keep it as a different name than Duration.format since they are in the same package???"
@@ -45,28 +45,28 @@ fun tomorrow(): LocalDate = today().plus(1, ChronoUnit.DAYS)
 fun nowDateTime(): LocalDateTime = today().atTime(LocalTime.now())
 
 fun localDateTimeOfEpochMilli(ms: Long): LocalDateTime =
-  LocalDateTime.ofInstant(Instant.ofEpochMilli(ms), ZoneId.systemDefault())
+    LocalDateTime.ofInstant(Instant.ofEpochMilli(ms), ZoneId.systemDefault())
 
 fun milli() = System.currentTimeMillis()
 
 fun LocalDateTime.atTime(hour: Int, min: Int): LocalDateTime = toLocalDate().atTime(hour, min)
 private val OFFSET: ZoneOffset = OffsetDateTime.now().offset
-fun LocalDateTime.toEpochMilli() = toEpochSecond(OFFSET)*1000
+fun LocalDateTime.toEpochMilli() = toEpochSecond(OFFSET) * 1000
 
 operator fun Date.minus(started: Date): Duration {
-  return this.toInstant() - started.toInstant()
+    return this.toInstant() - started.toInstant()
 }
 
 operator fun Instant.minus(started: Instant): Duration {
-  return (this.epochSecond - started.epochSecond).seconds
+    return (this.epochSecond - started.epochSecond).seconds
 }
 
 operator fun Date.minus(started: Instant): Duration {
-  return toInstant() - started
+    return toInstant() - started
 }
 
 operator fun Instant.minus(started: Date): Duration {
-  return this - started.toInstant()
+    return this - started.toInstant()
 }
 
 
@@ -75,40 +75,40 @@ operator fun Instant.minus(started: Date): Duration {
 */
 
 val Number.ms
-  get() = when (this) {
-	is Int    -> ms
-	is Long   -> ms
-	is Double -> ms
-	else      -> NOT_IMPLEMENTED
-  }
+    get() = when (this) {
+        is Int    -> ms
+        is Long   -> ms
+        is Double -> ms
+        else      -> NOT_IMPLEMENTED
+    }
 val Number.sec
-  get() = when (this) {
-	is Int    -> sec
-	is Long   -> sec
-	is Double -> sec
-	else      -> NOT_IMPLEMENTED
-  }
+    get() = when (this) {
+        is Int    -> sec
+        is Long   -> sec
+        is Double -> sec
+        else      -> NOT_IMPLEMENTED
+    }
 val Number.min
-  get() = when (this) {
-	is Int    -> min
-	is Long   -> min
-	is Double -> min
-	else      -> NOT_IMPLEMENTED
-  }
+    get() = when (this) {
+        is Int    -> min
+        is Long   -> min
+        is Double -> min
+        else      -> NOT_IMPLEMENTED
+    }
 val Number.hours
-  get() = when (this) {
-	is Int    -> hours
-	is Long   -> hours
-	is Double -> hours
-	else      -> NOT_IMPLEMENTED
-  }
+    get() = when (this) {
+        is Int    -> hours
+        is Long   -> hours
+        is Double -> hours
+        else      -> NOT_IMPLEMENTED
+    }
 val Number.days
-  get() = when (this) {
-	is Int    -> days
-	is Long   -> days
-	is Double -> days
-	else      -> NOT_IMPLEMENTED
-  }
+    get() = when (this) {
+        is Int    -> days
+        is Long   -> days
+        is Double -> days
+        else      -> NOT_IMPLEMENTED
+    }
 
 val Int.ms get() = this.milliseconds
 val Int.sec get() = this.seconds
@@ -139,7 +139,7 @@ object YesIUseTime
 actual inline fun sleep(duration: Duration) = Thread.sleep(duration.inWholeMilliseconds)
 
 actual suspend fun multiPlatformSleep(duration: Duration) {
-  delay(duration)
+    delay(duration)
 }
 
 @Suppress("NOTHING_TO_INLINE")
@@ -147,10 +147,10 @@ actual suspend fun multiPlatformSleep(duration: Duration) {
 inline fun Duration.sleep() = sleep(this)
 
 
-val UNIX_MS_FORMATTER = object: StringConverter<Number> {
-  override fun toString(t: Number): String {
-	return Date(t.toLong()).formatDate()
-  }
+val UNIX_MS_FORMATTER = object : StringConverter<Number> {
+    override fun toString(t: Number): String {
+        return Date(t.toLong()).formatDate()
+    }
 
-  override fun fromString(s: String) = TODO()
+    override fun fromString(s: String) = TODO()
 }
