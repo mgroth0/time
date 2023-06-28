@@ -33,11 +33,11 @@ enum class AMOrPM { AM, PM }
 val LocalDateTime.minPart
     get() = when {
         minute < 10 -> "0$minute"
-        else -> minute
+        else        -> minute
     }
 val LocalDateTime.halfDayHour
     get() = when (val h = hour % 12) {
-        0 -> 12
+        0    -> 12
         else -> h
     }
 val LocalDateTime.amOrPm get() = if (hour >= 13) PM else AM
@@ -95,15 +95,15 @@ val ONE_DAY = 1.days
 
 val Duration.largestFullUnit
     get() = when {
-        this == Duration.ZERO -> null
-        this > ONE_DAY -> DurationUnit.DAYS
-        this > ONE_HOUR -> DurationUnit.HOURS
-        this > ONE_MINUTE -> DurationUnit.MINUTES
-        this > ONE_SECOND -> DurationUnit.SECONDS
+        this == Duration.ZERO  -> null
+        this > ONE_DAY         -> DurationUnit.DAYS
+        this > ONE_HOUR        -> DurationUnit.HOURS
+        this > ONE_MINUTE      -> DurationUnit.MINUTES
+        this > ONE_SECOND      -> DurationUnit.SECONDS
         this > ONE_MILLISECOND -> DurationUnit.MILLISECONDS
         this > ONE_MICROSECOND -> DurationUnit.MICROSECONDS
         this >= ONE_NANOSECOND -> DurationUnit.NANOSECONDS
-        else -> error("could not figure out largestFullUnit for ${this}")
+        else                   -> error("could not figure out largestFullUnit for ${this}")
     }
 
 
@@ -129,3 +129,5 @@ fun timeoutLoop(
     }
     return result
 }
+
+expect fun nowKotlinDateTime(): LocalDateTime
