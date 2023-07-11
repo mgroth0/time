@@ -1,22 +1,22 @@
 {
-  "type" :         "MultiPlatformModule",
-  "jvm" :          {},
-  "js" :           "LIB",
-  "dependencies" : [
-	{
-	  "type" : "Lib",
-	  "cfg" :  "commonMainApi",
-	  "key" :  "kt-stdlib"
-	},
-	{
-	  "type" : "Project",
-	  "cfg" :  "commonMainApi",
-	  "path" : ":k:model"
-	},
-	{
-	  "type" : "Lib",
-	  "cfg" :  "commonMainApi",
-	  "key" :  "kotlinx-coroutines"
-	}
+  "type": "MultiPlatformModule",
+  "jvm": {},
+  "js": {"type":"lib"},
+  "dependencies": [
+    {
+      "type": "Lib",
+      "cfg": "commonMainApi",
+      "key": "kt-stdlib"
+    },
+    {
+      "type": "Project",
+      "cfg": "commonMainApi",
+      "path": ":k:model"
+    },
+    {
+      "type": "Lib",
+      "cfg": "commonMainApi",
+      "key": "kotlinx-coroutines"
+    }
   ]
 }

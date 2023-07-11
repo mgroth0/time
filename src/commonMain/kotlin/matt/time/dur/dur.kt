@@ -10,6 +10,7 @@ import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
 
 expect fun sleep(duration: Duration)
+fun sleepForever() = sleep(Duration.INFINITE)
 expect suspend fun multiPlatformSleep(duration: Duration)
 
 fun Duration.formatForSpeechSecs() = "${this.inWholeSeconds} seconds"

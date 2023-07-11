@@ -138,6 +138,7 @@ object YesIUseTime
 @Suppress("NOTHING_TO_INLINE")
 actual inline fun sleep(duration: Duration) = Thread.sleep(duration.inWholeMilliseconds)
 
+
 actual suspend fun multiPlatformSleep(duration: Duration) {
     delay(duration)
 }
