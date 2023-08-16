@@ -45,6 +45,7 @@ fun UnixTime.toLocalDateTime() = toInstant().toLocalDateTime()
 fun Instant.toLocalDateTime() = toLocalDateTime(TimeZone.currentSystemDefault())
 fun UnixTime.toInstant() = Instant.fromEpochMilliseconds(duration.inWholeMilliseconds)
 
+fun LocalDateTime.formatted() = "${monthNumber}/${dayOfMonth}/${year} ${halfDayHour}:${minPart} ${amOrPm}"
 
 const val MINUTE_MS: Int = 60 * 1000
 const val HOUR_MS: Int = 3600 * 1000
