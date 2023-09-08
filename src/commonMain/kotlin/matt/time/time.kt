@@ -57,12 +57,20 @@ fun Duration.toUnixTime() = UnixTime(this)
 @JvmInline
 value class UnixTime(val duration: Duration = unixTime()) : Comparable<UnixTime> {
 
+    companion object {
+        val EPOCH = UnixTime(Duration.ZERO)
+    }
+
     override fun compareTo(other: UnixTime) = duration.compareTo(other.duration)
     operator fun minus(other: UnixTime) = duration - other.duration
     operator fun plus(other: UnixTime) = duration + other.duration
     operator fun minus(other: Duration) = UnixTime(duration - other)
     operator fun plus(other: Duration) = UnixTime(duration + other)
+
+    fun timeSince() = UnixTime() - this
 }
+
+fun timeSince(unixTime: UnixTime) = unixTime.timeSince()
 
 
 fun DurationUnit.of(amount: Float) = amount.toDouble().toDuration(this)

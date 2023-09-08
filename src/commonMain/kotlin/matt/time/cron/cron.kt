@@ -3,16 +3,16 @@ package matt.time.cron
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.descriptors.serialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.serializer
 import matt.lang.anno.SeeURL
 import matt.prim.str.removePrefixAndOrSuffix
 
-@OptIn(InternalSerializationApi::class)
 object PosixCronSerializer: KSerializer<PosixCron> {
   override val descriptor by lazy {
-	String::class.serializer().descriptor
+	serialDescriptor<String>()
   }
 
   override fun deserialize(decoder: Decoder): PosixCron {
@@ -64,13 +64,12 @@ data class PosixCron(
   ).joinToString(separator = " ")
 }
 
-@OptIn(InternalSerializationApi::class)
 object QuotedPosixCronSerializer: KSerializer<QuotedPosixCron> {
 
   internal const val quoteChar = "'"
 
   override val descriptor by lazy {
-	String::class.serializer().descriptor
+	  serialDescriptor<String>()
   }
 
   override fun deserialize(decoder: Decoder): QuotedPosixCron {
