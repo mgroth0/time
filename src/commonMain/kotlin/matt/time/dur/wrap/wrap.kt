@@ -6,9 +6,9 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.serializer
+import matt.lang.convert.BiConverter
 import matt.model.data.interp.BasicInterpolatable
 import matt.model.data.mathable.MathAndComparable
-import matt.model.op.convert.Converter
 import matt.time.toUnixTime
 import kotlin.jvm.JvmInline
 import kotlin.time.Duration
@@ -116,7 +116,7 @@ value class DurationWrapper(val dur: Duration) : BasicInterpolatable<DurationWra
 
 }
 
-object MilliSecondDurationWrapperConverter : Converter<DurationWrapper, Double> {
+object MilliSecondDurationWrapperConverter : BiConverter<DurationWrapper, Double> {
     override fun convertToB(a: DurationWrapper): Double {
         return a.inWholeMilliseconds.toDouble()
     }

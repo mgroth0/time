@@ -5,10 +5,10 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.Serializable
+import matt.lang.convert.BiConverter
 import matt.lang.function.Produce
 import matt.lang.unixTime
 import matt.model.flowlogic.controlflowstatement.ControlFlow
-import matt.model.op.convert.Converter
 import matt.time.AMOrPM.AM
 import matt.time.AMOrPM.PM
 import matt.time.dur.sleep
@@ -79,7 +79,7 @@ fun DurationUnit.of(amount: Long) = amount.toDuration(this)
 fun DurationUnit.of(amount: Int) = amount.toDuration(this)
 
 
-object MilliSecondDurationConverter : Converter<Duration, Double> {
+object MilliSecondDurationConverter : BiConverter<Duration, Double> {
     override fun convertToB(a: Duration): Double {
         return a.inWholeMilliseconds.toDouble()
     }

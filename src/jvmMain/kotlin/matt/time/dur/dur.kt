@@ -5,7 +5,7 @@ package matt.time.dur
 import kotlinx.coroutines.delay
 import matt.lang.NOT_IMPLEMENTED
 import matt.lang.RUNTIME_MX
-import matt.model.op.convert.StringConverter
+import matt.prim.converters.StringConverter
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDate
