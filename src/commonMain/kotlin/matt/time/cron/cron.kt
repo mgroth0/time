@@ -1,33 +1,24 @@
 package matt.time.cron
 
-import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.descriptors.serialDescriptor
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
 import matt.lang.anno.SeeURL
+import matt.model.ser.EncodedAsStringKSerializer
 import matt.prim.str.removePrefixAndOrSuffix
 
-object PosixCronSerializer: KSerializer<PosixCron> {
-  override val descriptor by lazy {
-	serialDescriptor<String>()
-  }
+object PosixCronSerializer : EncodedAsStringKSerializer<PosixCron>() {
 
-  override fun deserialize(decoder: Decoder): PosixCron {
-	val s = decoder.decodeString()
-	val parts = s.split(" ")
-	return PosixCron(
-	  minutes = parts[0],
-	  hours = parts[1],
-	  dayOfMonth = parts[2],
-	  month = parts[3],
-	  dayOfWeek = parts[4]
-	)
-  }
+    override fun String.decode(): PosixCron {
+        val s = this
+        val parts = s.split(" ")
+        return PosixCron(
+            minutes = parts[0], hours = parts[1], dayOfMonth = parts[2], month = parts[3], dayOfWeek = parts[4]
+        )
+    }
 
-  override fun serialize(encoder: Encoder, value: PosixCron) {
-	encoder.encodeString(value.format())
-  }
+    override fun PosixCron.encodeToString(): String {
+        return format()
+    }
+
 
 }
 
@@ -36,62 +27,51 @@ object PosixCronSerializer: KSerializer<PosixCron> {
 @SeeURL("https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule")
 @SeeURL("https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07")
 data class PosixCron(
-  val minutes: String,
-  val hours: String,
-  val dayOfMonth: String,
-  val month: String,
-  val dayOfWeek: String,
+    val minutes: String,
+    val hours: String,
+    val dayOfMonth: String,
+    val month: String,
+    val dayOfWeek: String,
 ) {
-  companion object {
-	val EVERY_THREE_AM by lazy {
-	  PosixCron(
-		minutes = "0",
-		hours = "3",
-		dayOfMonth = "*",
-		month = "*",
-		dayOfWeek = "*"
-	  )
-	}
-  }
-  fun format() = listOf(
-	minutes,
-	hours,
-	dayOfMonth,
-	month,
-	dayOfWeek,
-  ).joinToString(separator = " ")
+    companion object {
+        val EVERY_THREE_AM by lazy {
+            PosixCron(
+                minutes = "0", hours = "3", dayOfMonth = "*", month = "*", dayOfWeek = "*"
+            )
+        }
+    }
+
+    fun format() = listOf(
+        minutes,
+        hours,
+        dayOfMonth,
+        month,
+        dayOfWeek,
+    ).joinToString(separator = " ")
 }
 
-object QuotedPosixCronSerializer: KSerializer<QuotedPosixCron> {
+object QuotedPosixCronSerializer : EncodedAsStringKSerializer<QuotedPosixCron>() {
 
-  internal const val quoteChar = "'"
+    internal const val QUOTE_CHAR = "'"
 
-  override val descriptor by lazy {
-	  serialDescriptor<String>()
-  }
+    override fun String.decode(): QuotedPosixCron {
+        val s = this
+        val parts = s.removePrefixAndOrSuffix(QUOTE_CHAR).split(" ")
+        return QuotedPosixCron(
+            PosixCron(
+                minutes = parts[0], hours = parts[1], dayOfMonth = parts[2], month = parts[3], dayOfWeek = parts[4]
+            )
+        )
+    }
 
-  override fun deserialize(decoder: Decoder): QuotedPosixCron {
-	val s = decoder.decodeString()
-	val parts = s.removePrefixAndOrSuffix(quoteChar).split(" ")
-	return QuotedPosixCron(
-	  PosixCron(
-		minutes = parts[0],
-		hours = parts[1],
-		dayOfMonth = parts[2],
-		month = parts[3],
-		dayOfWeek = parts[4]
-	  )
-	)
-  }
-
-  override fun serialize(encoder: Encoder, value: QuotedPosixCron) {
-	encoder.encodeString(value.format())
-  }
+    override fun QuotedPosixCron.encodeToString(): String {
+        return format()
+    }
 
 }
 
 
 @Serializable(with = QuotedPosixCronSerializer::class)
 class QuotedPosixCron(val posixCron: PosixCron) {
-  fun format() = QuotedPosixCronSerializer.quoteChar + posixCron.format() + QuotedPosixCronSerializer.quoteChar
+    fun format() = QuotedPosixCronSerializer.QUOTE_CHAR + posixCron.format() + QuotedPosixCronSerializer.QUOTE_CHAR
 }

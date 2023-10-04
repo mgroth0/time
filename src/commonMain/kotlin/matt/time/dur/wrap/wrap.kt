@@ -1,6 +1,5 @@
 package matt.time.dur.wrap
 
-import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encoding.Decoder
@@ -17,7 +16,6 @@ import kotlin.time.DurationUnit
 import kotlin.time.DurationUnit.SECONDS
 
 
-@OptIn(InternalSerializationApi::class)
 object DurationByWrapperSerializer : KSerializer<DurationWrapper> {
 
     private val durSer by lazy {
