@@ -85,6 +85,10 @@ value class DurationWrapper(val dur: Duration) : BasicInterpolatable<DurationWra
 
         return (dur / m.dur)
     }
+    override fun floatingPointDiv(m: DurationWrapper): Double {
+        return this / m
+    }
+
 
     override fun div(n: Number): DurationWrapper {
         return (dur / n.toDouble()).wrapped()
@@ -96,6 +100,7 @@ value class DurationWrapper(val dur: Duration) : BasicInterpolatable<DurationWra
 
     override val abs: DurationWrapper
         get() = this.dur.absoluteValue.wrapped()
+
 
 
     override fun compareTo(other: DurationWrapper): Int {
@@ -113,6 +118,8 @@ value class DurationWrapper(val dur: Duration) : BasicInterpolatable<DurationWra
     inline fun sleep() = matt.time.dur.sleep(dur)
 
 }
+
+
 
 object MilliSecondDurationWrapperConverter : BiConverter<DurationWrapper, Double> {
     override fun convertToB(a: DurationWrapper): Double {

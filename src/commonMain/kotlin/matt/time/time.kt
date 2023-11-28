@@ -1,5 +1,6 @@
 package matt.time
 
+import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
@@ -139,4 +140,4 @@ fun timeoutLoop(
     return result
 }
 
-expect fun nowKotlinDateTime(): LocalDateTime
+fun nowKotlinDateTime() = Clock.System.now().toLocalDateTime()

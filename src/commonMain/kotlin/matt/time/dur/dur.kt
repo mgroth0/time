@@ -47,7 +47,7 @@ val Duration.hoursPart: Long
     get() = when {
         this < 1.hours  -> 0
         this == 1.hours -> 1
-        else            -> floor((this.inWholeHours / 24.0)).toLong()
+        else            -> floor((this.inWholeHours % 24.0)).toLong()
     }
 val Duration.minutesPart: Long
     get() = when {
