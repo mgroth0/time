@@ -2,7 +2,6 @@
 
 package matt.time.dur
 
-import kotlinx.coroutines.delay
 import matt.lang.NOT_IMPLEMENTED
 import matt.lang.RUNTIME_MX
 import matt.prim.converters.StringConverter
@@ -16,7 +15,7 @@ import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
-import java.util.*
+import java.util.Date
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.hours
@@ -135,13 +134,9 @@ fun now() = System.currentTimeMillis().unixMS
 
 object YesIUseTime
 
-@Suppress("NOTHING_TO_INLINE")
-actual inline fun sleep(duration: Duration) = Thread.sleep(duration.inWholeMilliseconds)
 
 
-actual suspend fun multiPlatformSleep(duration: Duration) {
-    delay(duration)
-}
+
 
 @Suppress("NOTHING_TO_INLINE")
 @JvmName("sleep2")

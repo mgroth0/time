@@ -1,26 +1,29 @@
 {
-    "type": "MultiPlatformModule",
-    "dependencies": [
-        {
-            "type": "Project",
-            "cfg": "commonMainApi",
-            "path": ":k:model"
-        },
-        {
-            "type": "Lib",
-            "cfg": "commonMainApi",
-            "key": "kotlinx-coroutines"
-        },
-        {
-            "type": "Project",
-            "cfg": "jvmTestImplementation",
-            "path": ":k:test"
-        }
-    ],
-    "jvm": {
+  "type": "MultiPlatformModule",
+  "dependencies": [
+    {
+      "type": "Project",
+      "cfg": "commonMainApi",
+      "path": ":k:model"
     },
-    "js": {
-        "type": "lib"
+    {
+      "type": "Lib",
+      "cfg": "commonMainApi",
+      "key": "kotlinx-coroutines"
     },
-    "native": "LIB"
+    {
+      "type": "Project",
+      "cfg": "jvmTestImplementation",
+      "path": ":k:test"
+    }
+  ],
+  "jvm": {
+  },
+  "js": {
+    "type": "lib"
+  },
+  "android": {
+    "type": "Lib"
+  },
+  "native": "LIB"
 }

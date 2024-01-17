@@ -141,3 +141,10 @@ fun timeoutLoop(
 }
 
 fun nowKotlinDateTime() = Clock.System.now().toLocalDateTime()
+
+
+@Serializable
+class MyKey(
+    val key: String,
+    val expires: UnixTime
+)
