@@ -46,7 +46,7 @@ fun UnixTime.toLocalDateTime() = toInstant().toLocalDateTime()
 fun Instant.toLocalDateTime() = toLocalDateTime(TimeZone.currentSystemDefault())
 fun UnixTime.toInstant() = Instant.fromEpochMilliseconds(duration.inWholeMilliseconds)
 
-fun LocalDateTime.formatted() = "${monthNumber}/${dayOfMonth}/${year} ${halfDayHour}:${minPart} ${amOrPm}"
+fun LocalDateTime.formatted() = "$monthNumber/$dayOfMonth/$year $halfDayHour:$minPart $amOrPm"
 
 const val MINUTE_MS: Int = 60 * 1000
 const val HOUR_MS: Int = 3600 * 1000
@@ -81,19 +81,13 @@ fun DurationUnit.of(amount: Int) = amount.toDuration(this)
 
 
 object MilliSecondDurationConverter : BiConverter<Duration, Double> {
-    override fun convertToB(a: Duration): Double {
-        return a.inWholeMilliseconds.toDouble()
-    }
+    override fun convertToB(a: Duration): Double = a.inWholeMilliseconds.toDouble()
 
-    override fun convertToA(b: Double): Duration {
-        return b.milliseconds
-    }
+    override fun convertToA(b: Double): Duration = b.milliseconds
 
 }
 
-fun Duration.remMillis(d: Duration): Duration {
-    return inWholeMilliseconds.rem(d.inWholeMilliseconds).milliseconds
-}
+fun Duration.remMillis(d: Duration): Duration = inWholeMilliseconds.rem(d.inWholeMilliseconds).milliseconds
 
 val ONE_NANOSECOND = 1.nanoseconds
 val ONE_MICROSECOND = 1.microseconds
@@ -113,7 +107,7 @@ val Duration.largestFullUnit
         this > ONE_MILLISECOND -> DurationUnit.MILLISECONDS
         this > ONE_MICROSECOND -> DurationUnit.MICROSECONDS
         this >= ONE_NANOSECOND -> DurationUnit.NANOSECONDS
-        else                   -> error("could not figure out largestFullUnit for ${this}")
+        else                   -> error("could not figure out largestFullUnit for $this")
     }
 
 
@@ -134,7 +128,7 @@ fun timeoutLoop(
             result = TimeoutLoopResult.TIMEOUT
             break
         }
-        if (op() == ControlFlow.BREAK) break
+        if (op() === ControlFlow.BREAK) break
         sleep(interval)
     }
     return result
@@ -146,5 +140,10 @@ fun nowKotlinDateTime() = Clock.System.now().toLocalDateTime()
 @Serializable
 class MyKey(
     val key: String,
-    val expires: UnixTime
-)
+    private val expires: UnixTime
+) {
+    fun isExpiredNow() = UnixTime() >= expires
+    fun expiresIn() = expires - UnixTime()
+
+
+}

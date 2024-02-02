@@ -73,43 +73,26 @@ value class DurationWrapper(val dur: Duration) : BasicInterpolatable<DurationWra
     val inWholeMilliseconds get() = dur.inWholeMilliseconds
     val inWholeSeconds get() = dur.inWholeSeconds
     val inDecimalSeconds get() = dur.toDouble(SECONDS)
-    override fun plus(m: DurationWrapper): DurationWrapper {
-        return (dur + m.dur).wrapped()
-    }
+    override fun plus(m: DurationWrapper): DurationWrapper = (dur + m.dur).wrapped()
 
-    override fun minus(m: DurationWrapper): DurationWrapper {
-        return (dur - m.dur).wrapped()
-    }
+    override fun minus(m: DurationWrapper): DurationWrapper = (dur - m.dur).wrapped()
 
-    override fun div(m: DurationWrapper): Double {
-
-        return (dur / m.dur)
-    }
-    override fun floatingPointDiv(m: DurationWrapper): Double {
-        return this / m
-    }
+    override fun div(m: DurationWrapper): Double = (dur / m.dur)
+    override fun floatingPointDiv(m: DurationWrapper): Double = this / m
 
 
-    override fun div(n: Number): DurationWrapper {
-        return (dur / n.toDouble()).wrapped()
-    }
+    override fun div(n: Number): DurationWrapper = (dur / n.toDouble()).wrapped()
 
-    override fun times(n: Number): DurationWrapper {
-        return (dur * n.toDouble()).wrapped()
-    }
+    override fun times(n: Number): DurationWrapper = (dur * n.toDouble()).wrapped()
 
     override val abs: DurationWrapper
         get() = this.dur.absoluteValue.wrapped()
 
 
 
-    override fun compareTo(other: DurationWrapper): Int {
-        return dur.compareTo(other.dur)
-    }
+    override fun compareTo(other: DurationWrapper): Int = dur.compareTo(other.dur)
 
-    fun remMillis(d: DurationWrapper): DurationWrapper {
-        return inWholeMilliseconds.rem(d.inWholeMilliseconds).milliseconds.wrapped()
-    }
+    fun remMillis(d: DurationWrapper): DurationWrapper = inWholeMilliseconds.rem(d.inWholeMilliseconds).milliseconds.wrapped()
 
 
     fun toUnixTime() = dur.toUnixTime()
@@ -122,13 +105,9 @@ value class DurationWrapper(val dur: Duration) : BasicInterpolatable<DurationWra
 
 
 object MilliSecondDurationWrapperConverter : BiConverter<DurationWrapper, Double> {
-    override fun convertToB(a: DurationWrapper): Double {
-        return a.inWholeMilliseconds.toDouble()
-    }
+    override fun convertToB(a: DurationWrapper): Double = a.inWholeMilliseconds.toDouble()
 
-    override fun convertToA(b: Double): DurationWrapper {
-        return b.milliseconds.wrapped()
-    }
+    override fun convertToA(b: Double): DurationWrapper = b.milliseconds.wrapped()
 
 }
 

@@ -81,7 +81,7 @@ fun Duration.largestUnitAtLeastOne(): DurationUnit {
 
     require(!isNegative())
     return when {
-        inWholeDays >= 1         -> TODO("get largest unit at least one for ${this}")
+        inWholeDays >= 1         -> TODO("get largest unit at least one for $this")
         inWholeHours >= 1        -> DurationUnit.HOURS
         inWholeMinutes >= 1      -> DurationUnit.MINUTES
         inWholeSeconds >= 1      -> DurationUnit.SECONDS

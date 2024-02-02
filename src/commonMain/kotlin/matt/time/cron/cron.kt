@@ -15,9 +15,7 @@ object PosixCronSerializer : EncodedAsStringKSerializer<PosixCron>() {
         )
     }
 
-    override fun PosixCron.encodeToString(): String {
-        return format()
-    }
+    override fun PosixCron.encodeToString(): String = format()
 
 
 }
@@ -64,9 +62,7 @@ object QuotedPosixCronSerializer : EncodedAsStringKSerializer<QuotedPosixCron>()
         )
     }
 
-    override fun QuotedPosixCron.encodeToString(): String {
-        return format()
-    }
+    override fun QuotedPosixCron.encodeToString(): String = format()
 
 }
 

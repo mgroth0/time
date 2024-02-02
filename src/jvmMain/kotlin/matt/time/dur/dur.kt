@@ -46,27 +46,19 @@ fun nowDateTime(): LocalDateTime = today().atTime(LocalTime.now())
 fun localDateTimeOfEpochMilli(ms: Long): LocalDateTime =
     LocalDateTime.ofInstant(Instant.ofEpochMilli(ms), ZoneId.systemDefault())
 
-fun milli() = System.currentTimeMillis()
+fun unixMillis() = System.currentTimeMillis()
 
 fun LocalDateTime.atTime(hour: Int, min: Int): LocalDateTime = toLocalDate().atTime(hour, min)
 private val OFFSET: ZoneOffset = OffsetDateTime.now().offset
 fun LocalDateTime.toEpochMilli() = toEpochSecond(OFFSET) * 1000
 
-operator fun Date.minus(started: Date): Duration {
-    return this.toInstant() - started.toInstant()
-}
+operator fun Date.minus(started: Date): Duration = this.toInstant() - started.toInstant()
 
-operator fun Instant.minus(started: Instant): Duration {
-    return (this.epochSecond - started.epochSecond).seconds
-}
+operator fun Instant.minus(started: Instant): Duration = (this.epochSecond - started.epochSecond).seconds
 
-operator fun Date.minus(started: Instant): Duration {
-    return toInstant() - started
-}
+operator fun Date.minus(started: Instant): Duration = toInstant() - started
 
-operator fun Instant.minus(started: Date): Duration {
-    return this - started.toInstant()
-}
+operator fun Instant.minus(started: Date): Duration = this - started.toInstant()
 
 
 /*val Number.nanos
@@ -143,9 +135,7 @@ inline fun Duration.sleep() = sleep(this)
 
 
 val UNIX_MS_FORMATTER = object : StringConverter<Number> {
-    override fun toString(t: Number): String {
-        return Date(t.toLong()).formatDate()
-    }
+    override fun toString(t: Number): String = Date(t.toLong()).formatDate()
 
     override fun fromString(s: String) = TODO()
 }
