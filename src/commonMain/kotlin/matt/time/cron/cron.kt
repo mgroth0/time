@@ -2,10 +2,10 @@ package matt.time.cron
 
 import kotlinx.serialization.Serializable
 import matt.lang.anno.SeeURL
-import matt.model.ser.EncodedAsStringKSerializer
+import matt.model.ser.EncodedAsStringSerializer
 import matt.prim.str.removePrefixAndOrSuffix
 
-object PosixCronSerializer : EncodedAsStringKSerializer<PosixCron>() {
+object PosixCronSerializer : EncodedAsStringSerializer<PosixCron>() {
 
     override fun String.decode(): PosixCron {
         val s = this
@@ -16,8 +16,6 @@ object PosixCronSerializer : EncodedAsStringKSerializer<PosixCron>() {
     }
 
     override fun PosixCron.encodeToString(): String = format()
-
-
 }
 
 
@@ -29,7 +27,7 @@ data class PosixCron(
     val hours: String,
     val dayOfMonth: String,
     val month: String,
-    val dayOfWeek: String,
+    val dayOfWeek: String
 ) {
     companion object {
         val EVERY_THREE_AM by lazy {
@@ -39,16 +37,17 @@ data class PosixCron(
         }
     }
 
-    fun format() = listOf(
-        minutes,
-        hours,
-        dayOfMonth,
-        month,
-        dayOfWeek,
-    ).joinToString(separator = " ")
+    fun format() =
+        listOf(
+            minutes,
+            hours,
+            dayOfMonth,
+            month,
+            dayOfWeek
+        ).joinToString(separator = " ")
 }
 
-object QuotedPosixCronSerializer : EncodedAsStringKSerializer<QuotedPosixCron>() {
+object QuotedPosixCronSerializer : EncodedAsStringSerializer<QuotedPosixCron>() {
 
     internal const val QUOTE_CHAR = "'"
 
@@ -63,7 +62,6 @@ object QuotedPosixCronSerializer : EncodedAsStringKSerializer<QuotedPosixCron>()
     }
 
     override fun QuotedPosixCron.encodeToString(): String = format()
-
 }
 
 

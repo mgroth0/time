@@ -36,7 +36,6 @@ object DurationByWrapperSerializer : KSerializer<DurationWrapper> {
     ) {
         encoder.encodeSerializableValue(durSer, value.dur)
     }
-
 }
 
 
@@ -44,7 +43,8 @@ fun Duration.wrapped() = DurationWrapper(this)
 
 @Serializable(with = DurationByWrapperSerializer::class)
 @JvmInline
-value class DurationWrapper(val dur: Duration) : BasicInterpolatable<DurationWrapper>,
+value class DurationWrapper(val dur: Duration) :
+    BasicInterpolatable<DurationWrapper>,
     MathAndComparable<DurationWrapper> {
 
     companion object {
@@ -65,7 +65,7 @@ value class DurationWrapper(val dur: Duration) : BasicInterpolatable<DurationWra
     ): DurationWrapper {
         if (t <= 0.0) return this
         return if (t >= 1.0) endValue as DurationWrapper else
-            DurationWrapper(dur + ((endValue as DurationWrapper).dur - this.dur) * t)
+            DurationWrapper(dur + ((endValue as DurationWrapper).dur - dur) * t)
     }
 
     fun toDouble(unit: DurationUnit) = dur.toDouble(unit)
@@ -86,7 +86,7 @@ value class DurationWrapper(val dur: Duration) : BasicInterpolatable<DurationWra
     override fun times(n: Number): DurationWrapper = (dur * n.toDouble()).wrapped()
 
     override val abs: DurationWrapper
-        get() = this.dur.absoluteValue.wrapped()
+        get() = dur.absoluteValue.wrapped()
 
 
 
@@ -99,7 +99,6 @@ value class DurationWrapper(val dur: Duration) : BasicInterpolatable<DurationWra
 
     @Suppress("NOTHING_TO_INLINE")
     inline fun sleep() = matt.time.dur.sleep(dur)
-
 }
 
 
@@ -108,7 +107,6 @@ object MilliSecondDurationWrapperConverter : BiConverter<DurationWrapper, Double
     override fun convertToB(a: DurationWrapper): Double = a.inWholeMilliseconds.toDouble()
 
     override fun convertToA(b: Double): DurationWrapper = b.milliseconds.wrapped()
-
 }
 
 

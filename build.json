@@ -7,14 +7,14 @@
       "path": ":k:model"
     },
     {
-      "type": "Lib",
-      "cfg": "commonMainApi",
-      "key": "kotlinx-coroutines"
+      "type": "Project",
+      "cfg": "commonJvmAndroidTestImplementation",
+      "path": ":k:test"
     },
     {
       "type": "Project",
-      "cfg": "jvmTestImplementation",
-      "path": ":k:test"
+      "cfg": "androidInstrumentedTestImplementation",
+      "path": ":k:test:ainstrument"
     }
   ],
   "jvm": {
@@ -25,5 +25,5 @@
   "android": {
     "type": "Lib"
   },
-  "native": "LIB"
+  "native": {"type":"Lib"}
 }
