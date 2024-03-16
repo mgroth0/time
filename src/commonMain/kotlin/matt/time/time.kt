@@ -140,6 +140,23 @@ private val formattedFormat =
 
 fun LocalDateTime.formatShort() = format(formattedFormat)
 
+private val preciseFormat =
+    LocalDateTime.Format {
+        monthNumber(Padding.NONE)
+        char('/')
+        dayOfMonth(Padding.NONE)
+        char(' ')
+        amPmHour(Padding.NONE)
+        char(':')
+        minute(Padding.NONE)
+        char(':')
+        second(Padding.NONE)
+        char(' ')
+        amPmMarker(am = "AM", pm = "PM")
+    }
+
+fun LocalDateTime.formatPrecise() = format(formattedFormat)
+
 
 
 

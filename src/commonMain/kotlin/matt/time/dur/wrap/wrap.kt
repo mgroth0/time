@@ -6,7 +6,6 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.serializer
 import matt.lang.convert.BiConverter
-import matt.model.data.interp.BasicInterpolatable
 import matt.model.data.mathable.MathAndComparable
 import matt.time.toUnixTime
 import kotlin.jvm.JvmInline
@@ -44,7 +43,6 @@ fun Duration.wrapped() = DurationWrapper(this)
 @Serializable(with = DurationByWrapperSerializer::class)
 @JvmInline
 value class DurationWrapper(val dur: Duration) :
-    BasicInterpolatable<DurationWrapper>,
     MathAndComparable<DurationWrapper> {
 
     companion object {
@@ -58,15 +56,6 @@ value class DurationWrapper(val dur: Duration) :
         decimals: Int = 0
     ) = dur.toString(unit, decimals)
 
-
-    override fun interpolate(
-        endValue: BasicInterpolatable<*>,
-        t: Double
-    ): DurationWrapper {
-        if (t <= 0.0) return this
-        return if (t >= 1.0) endValue as DurationWrapper else
-            DurationWrapper(dur + ((endValue as DurationWrapper).dur - dur) * t)
-    }
 
     fun toDouble(unit: DurationUnit) = dur.toDouble(unit)
 
