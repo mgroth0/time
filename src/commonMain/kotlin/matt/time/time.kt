@@ -1,6 +1,7 @@
 package matt.time
 
 import kotlinx.datetime.Clock
+import kotlinx.datetime.Clock.System.now
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
@@ -19,6 +20,7 @@ import kotlinx.datetime.number
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.Serializable
+import matt.lang.anno.SeeURL
 import matt.lang.common.unsafeErr
 import matt.lang.convert.BiConverter
 import matt.lang.function.Op
@@ -39,6 +41,27 @@ import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
+
+@SeeURL("https://github.com/Kotlin/kotlinx-datetime/issues/368")
+@Serializable
+data class Period(val start: Instant, val end: Instant) {
+    init {
+        require(end >= start)
+    }
+    val duration by lazy { end - start }
+}
+@SeeURL("https://github.com/Kotlin/kotlinx-datetime/issues/368")
+@Serializable
+data class NonZeroPeriod(val start: Instant, val end: Instant) {
+    init {
+        require(end > start)
+    }
+    val duration by lazy { end - start }
+}
+
+fun Instant.timeSince(): Duration = now() - this
+
+fun Instant.toEpochDuration(): Duration = epochSeconds.seconds + nanosecondsOfSecond.nanoseconds
 
 fun currentTime() = nowLocal().time
 

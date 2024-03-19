@@ -1,9 +1,12 @@
+@file:SeeURL("https://github.com/Scogun/kcron-common/issues/31")
+
 package matt.time.cron
 
 import kotlinx.serialization.Serializable
 import matt.lang.anno.SeeURL
 import matt.model.ser.EncodedAsStringSerializer
 import matt.prim.str.removePrefixAndOrSuffix
+
 
 object PosixCronSerializer : EncodedAsStringSerializer<PosixCron>() {
 
@@ -31,6 +34,8 @@ data class PosixCron(
 ) {
     companion object {
         val EVERY_THREE_AM by lazy {
+
+
             PosixCron(
                 minutes = "0", hours = "3", dayOfMonth = "*", month = "*", dayOfWeek = "*"
             )
@@ -66,6 +71,6 @@ object QuotedPosixCronSerializer : EncodedAsStringSerializer<QuotedPosixCron>() 
 
 
 @Serializable(with = QuotedPosixCronSerializer::class)
-class QuotedPosixCron(val posixCron: PosixCron) {
+class QuotedPosixCron(private val posixCron: PosixCron) {
     fun format() = QuotedPosixCronSerializer.QUOTE_CHAR + posixCron.format() + QuotedPosixCronSerializer.QUOTE_CHAR
 }

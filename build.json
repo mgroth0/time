@@ -7,6 +7,18 @@
       "path": ":k:model"
     },
     {
+      "type": "Lib",
+      "cfg": "commonMainApi",
+      "key": "kcron"
+    },
+    {
+      "type": "Lib",
+      "cfg": "commonMainApi",
+      "key": "kcron-core",
+      "note": "https://github.com/Scogun/kcron-common/issues/30"
+    },
+
+    {
       "type": "Project",
       "cfg": "commonJvmAndroidTestImplementation",
       "path": ":k:test"
